@@ -31,6 +31,9 @@
     <string name="interface_settings_title">Interface</string>
     <string name="navigation_settings_title">Navigation</string>
 
+    <!-- Slim Shortcuts -->
+    <string name="slim_shortcut_picker">Slim Actions</string>
+
     <!-- Color Picker -->
     <string name="dialog_color_picker">Color Picker</string>
     <string name="press_color_to_apply">Press on color below to apply</string>
@@ -725,4 +728,18 @@
     <string name="qs_advanced_location_title">Advanced location quick settings</string>
     <string name="qs_advanced_location_summary">Enable advanced settings for location in quick settings</string>
 
+<<<<<<< HEAD
+||||||| parent of e26f0ca... [2/2] Settings: Chamber of Secrets && SlimActions to shortcuts
+    <!-- SuperSU header name - the app hides itself from launcher based on this resource name being present in com.android.settings -->
+    <string name="supersu_title">SuperSU</string>
+
+=======
+    <!-- Chamber of Secrets -->
+    <string name="chamber_title">Chamber of secrets</string>
+    <string name="chamber_toast">The chamber of secrets has opened</string>
+
+    <!-- SuperSU header name - the app hides itself from launcher based on this resource name being present in com.android.settings -->
+    <string name="supersu_title">SuperSU</string>
+
+>>>>>>> e26f0ca... [2/2] Settings: Chamber of Secrets && SlimActions to shortcuts
 </resources>
