@@ -1226,7 +1226,11 @@ public class SettingsActivity extends Activity
                     if (!supported) {
                         removeTile = true;
                     }
-                }
+                } else if (id == R.id.navigation_settings) {
+                    int deviceKeys = getResources().getInteger(
+                            com.android.internal.R.integer.config_deviceHardwareKeys);
+                    removeTile = (deviceKeys == 0);
+                    }
 
                 if (UserHandle.MU_ENABLED && UserHandle.myUserId() != 0
                         && !ArrayUtils.contains(SETTINGS_FOR_RESTRICTED, id)) {
