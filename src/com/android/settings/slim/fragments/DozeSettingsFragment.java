@@ -49,6 +49,7 @@ public class DozeSettingsFragment extends SettingsPreferenceFragment implements
     private static final String KEY_DOZE_TRIGGER_SIGMOTION = "doze_trigger_sigmotion";
     private static final String KEY_DOZE_TRIGGER_NOTIFICATION = "doze_trigger_notification";
     private static final String KEY_DOZE_SCHEDULE = "doze_schedule";
+    private static final String KEY_DOZE_BRIGHTNESS = "doze_brightness";
 
     private static final String SYSTEMUI_METADATA_NAME = "com.android.systemui";
 
@@ -57,6 +58,10 @@ public class DozeSettingsFragment extends SettingsPreferenceFragment implements
     private SwitchPreference mDozeTriggerSigmotion;
     private SwitchPreference mDozeTriggerNotification;
     private SwitchPreference mDozeSchedule;
+    private SlimSeekBarPreference mDozeBrightness;
+
+    private float mBrightnessScale;
+    private float mDefaultBrightnessScale;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,12 +69,13 @@ public class DozeSettingsFragment extends SettingsPreferenceFragment implements
 
         final Activity activity = getActivity();
         PreferenceScreen prefSet = getPreferenceScreen();
+        Resources res = getResources();
 
         addPreferencesFromResource(R.xml.doze_settings);
 
         // Doze timeout seekbar
         mDozeTimeout = (SlimSeekBarPreference) findPreference(KEY_DOZE_TIMEOUT);
-        mDozeTimeout.setDefault(3000);
+        mDozeTimeout.setDefault(dozeTimeoutDefault(activity));
         mDozeTimeout.isMilliseconds(true);
         mDozeTimeout.setInterval(1);
         mDozeTimeout.minimumValue(100);
@@ -95,6 +101,17 @@ public class DozeSettingsFragment extends SettingsPreferenceFragment implements
         // Doze schedule
         mDozeSchedule = (SwitchPreference) findPreference(KEY_DOZE_SCHEDULE);
         mDozeSchedule.setOnPreferenceChangeListener(this);
+
+        // Doze brightness
+        mDefaultBrightnessScale =
+                (float) res.getInteger(
+                com.android.internal.R.integer.config_screenBrightnessDoze) / res.getInteger(
+                com.android.internal.R.integer.config_screenBrightnessSettingMaximum);
+        float defaultBrightness = (mDefaultBrightnessScale * 100);
+        mDozeBrightness = (SlimSeekBarPreference) findPreference(KEY_DOZE_BRIGHTNESS);
+        mDozeBrightness.setDefault((int) defaultBrightness);
+        mDozeBrightness.setInterval(1);
+        mDozeBrightness.setOnPreferenceChangeListener(this);
 
         setHasOptionsMenu(false);
     }
@@ -126,6 +143,11 @@ public class DozeSettingsFragment extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(),
                     Settings.System.DOZE_SCHEDULE, value ? 1 : 0);
         }
+        if (preference == mDozeBrightness) {
+            float valNav = Float.parseFloat((String) newValue);
+            Settings.System.putFloat(getContentResolver(),
+                    Settings.System.DOZE_BRIGHTNESS, valNav / 100);
+        }
         return true;
     }
 
@@ -136,10 +158,12 @@ public class DozeSettingsFragment extends SettingsPreferenceFragment implements
     }
 
     private void updateState() {
+        final Activity activity = getActivity();
+
         // Update doze preferences
         if (mDozeTimeout != null) {
             final int statusDozeTimeout = Settings.System.getInt(getContentResolver(),
-                    Settings.System.DOZE_TIMEOUT, 3000);
+                    Settings.System.DOZE_TIMEOUT, dozeTimeoutDefault(activity));
             // minimum 100 is 1 interval of the 100 multiplier
             mDozeTimeout.setInitValue((statusDozeTimeout / 100) - 1);
         }
@@ -163,6 +187,11 @@ public class DozeSettingsFragment extends SettingsPreferenceFragment implements
                     Settings.System.DOZE_SCHEDULE, 1);
             mDozeSchedule.setChecked(value != 0);
         }
+        if (mDozeBrightness != null) {
+            mBrightnessScale = Settings.System.getFloat(getContentResolver(),
+                    Settings.System.DOZE_BRIGHTNESS, mDefaultBrightnessScale);
+            mDozeBrightness.setInitValue((int) (mBrightnessScale * 100));
+        }
     }
 
     private static boolean isPickupSensorUsedByDefault(Context context) {
@@ -171,6 +200,10 @@ public class DozeSettingsFragment extends SettingsPreferenceFragment implements
 
     private static boolean isSigmotionSensorUsedByDefault(Context context) {
         return getConfigBoolean(context, "doze_pulse_on_significant_motion");
+    }
+
+    private static int dozeTimeoutDefault(Context context) {
+        return getConfigInteger(context, "doze_pulse_duration_visible");
     }
 
     private static Boolean getConfigBoolean(Context context, String configBooleanName) {
@@ -195,5 +228,29 @@ public class DozeSettingsFragment extends SettingsPreferenceFragment implements
             b = systemUiResources.getBoolean(resId);
         }
         return b;
+    }
+
+    private static Integer getConfigInteger(Context context, String configIntegerName) {
+        int resId = -1;
+        Integer i = 1;
+        PackageManager pm = context.getPackageManager();
+        if (pm == null) {
+            return null;
+        }
+
+        Resources systemUiResources;
+        try {
+            systemUiResources = pm.getResourcesForApplication(SYSTEMUI_METADATA_NAME);
+        } catch (Exception e) {
+            Log.e("DozeSettings:", "can't access systemui resources",e);
+            return null;
+        }
+
+        resId = systemUiResources.getIdentifier(
+            SYSTEMUI_METADATA_NAME + ":integer/" + configIntegerName, null, null);
+        if (resId > 0) {
+            i = systemUiResources.getInteger(resId);
+        }
+        return i;
     }
 }

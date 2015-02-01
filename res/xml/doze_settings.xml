@@ -53,4 +53,9 @@
             android:persistent="false"
             android:dependency="doze_trigger_notification" />
 
+    <SlimSeekBarPreference
+            android:key="doze_brightness"
+            android:title="@string/doze_brightness_title"
+            android:summary="@string/doze_brightness_summary" />
+
 </PreferenceScreen>
