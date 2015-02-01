@@ -736,9 +736,6 @@
     <string name="chamber_title">Chamber of secrets</string>
     <string name="chamber_toast">The chamber of secrets has opened</string>
 
-    <!-- SuperSU header name - the app hides itself from launcher based on this resource name being present in com.android.settings -->
-    <string name="supersu_title">SuperSU</string>
-
     <!-- WiFi country code -->
     <string name="wifi_country_code_title">Wi-Fi country code</string>
     <string name="wifi_country_code_summary">Currently automatically selected country for Wi-Fi channel availability</string>

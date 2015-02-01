@@ -19,6 +19,7 @@ package com.android.settings.slim.fragments;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.ContentObserver;
@@ -31,6 +32,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.SlimSeekBarPreference;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +49,8 @@ public class DozeSettingsFragment extends SettingsPreferenceFragment implements
     private static final String KEY_DOZE_TRIGGER_SIGMOTION = "doze_trigger_sigmotion";
     private static final String KEY_DOZE_TRIGGER_NOTIFICATION = "doze_trigger_notification";
     private static final String KEY_DOZE_SCHEDULE = "doze_schedule";
+
+    private static final String SYSTEMUI_METADATA_NAME = "com.android.systemui";
 
     private SlimSeekBarPreference mDozeTimeout;
     private SwitchPreference mDozeTriggerPickup;
@@ -73,13 +77,13 @@ public class DozeSettingsFragment extends SettingsPreferenceFragment implements
         mDozeTimeout.setOnPreferenceChangeListener(this);
 
         // Doze triggers
-        if (isPickupSensorAvailable(activity)) {
+        if (isPickupSensorUsedByDefault(activity)) {
             mDozeTriggerPickup = (SwitchPreference) findPreference(KEY_DOZE_TRIGGER_PICKUP);
             mDozeTriggerPickup.setOnPreferenceChangeListener(this);
         } else {
             removePreference(KEY_DOZE_TRIGGER_PICKUP);
         }
-        if (isSigmotionSensorAvailable(activity)) {
+        if (isSigmotionSensorUsedByDefault(activity)) {
             mDozeTriggerSigmotion = (SwitchPreference) findPreference(KEY_DOZE_TRIGGER_SIGMOTION);
             mDozeTriggerSigmotion.setOnPreferenceChangeListener(this);
         } else {
@@ -161,13 +165,35 @@ public class DozeSettingsFragment extends SettingsPreferenceFragment implements
         }
     }
 
-    private static boolean isPickupSensorAvailable(Context context) {
-        SensorManager sensors = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        return sensors != null && sensors.getDefaultSensor(Sensor.TYPE_PICK_UP_GESTURE) != null;
+    private static boolean isPickupSensorUsedByDefault(Context context) {
+        return getConfigBoolean(context, "doze_pulse_on_pick_up");
     }
 
-    private static boolean isSigmotionSensorAvailable(Context context) {
-        SensorManager sensors = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        return sensors != null && sensors.getDefaultSensor(Sensor.TYPE_SIGNIFICANT_MOTION) != null;
+    private static boolean isSigmotionSensorUsedByDefault(Context context) {
+        return getConfigBoolean(context, "doze_pulse_on_significant_motion");
+    }
+
+    private static Boolean getConfigBoolean(Context context, String configBooleanName) {
+        int resId = -1;
+        Boolean b = true;
+        PackageManager pm = context.getPackageManager();
+        if (pm == null) {
+            return null;
+        }
+
+        Resources systemUiResources;
+        try {
+            systemUiResources = pm.getResourcesForApplication(SYSTEMUI_METADATA_NAME);
+        } catch (Exception e) {
+            Log.e("DozeSettings:", "can't access systemui resources",e);
+            return null;
+        }
+
+        resId = systemUiResources.getIdentifier(
+            SYSTEMUI_METADATA_NAME + ":bool/" + configBooleanName, null, null);
+        if (resId > 0) {
+            b = systemUiResources.getBoolean(resId);
+        }
+        return b;
     }
 }
