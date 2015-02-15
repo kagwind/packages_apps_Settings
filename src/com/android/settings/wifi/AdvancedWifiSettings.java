@@ -55,6 +55,8 @@ public class AdvancedWifiSettings extends SettingsPreferenceFragment
     private static final String KEY_MAC_ADDRESS = "mac_address";
     private static final String KEY_CURRENT_IP_ADDRESS = "current_ip_address";
     private static final String KEY_FREQUENCY_BAND = "frequency_band";
+    private static final String KEY_COUNTRY_CODE = "country_code";
+    private static final String KEY_COUNTRY_OVERRIDE = "country_override";
     private static final String KEY_NOTIFY_OPEN_NETWORKS = "notify_open_networks";
     private static final String KEY_SLEEP_POLICY = "sleep_policy";
     private static final String KEY_SCAN_ALWAYS_AVAILABLE = "wifi_scan_always_available";
@@ -66,6 +68,9 @@ public class AdvancedWifiSettings extends SettingsPreferenceFragment
 
     private WifiManager mWifiManager;
     private NetworkScoreManager mNetworkScoreManager;
+
+    private ListPreference countryCodePref;
+    private ListPreference countryOverridePref;
 
     private IntentFilter mFilter;
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -187,6 +192,30 @@ public class AdvancedWifiSettings extends SettingsPreferenceFragment
             }
         }
 
+        countryCodePref = (ListPreference) findPreference(KEY_COUNTRY_CODE);
+        if (countryCodePref != null) {
+            countryCodePref.setOnPreferenceChangeListener(this);
+            String value = Settings.Global.getString(getContentResolver(),
+                                Settings.Global.WIFI_COUNTRY_CODE);
+            if (value != null && !value.isEmpty() && value != "") {
+                int index = countryCodePref.findIndexOfValue(value);
+                countryCodePref.setValue(value);
+                updateCountryCodeSummary(countryCodePref, index);
+            }
+        }
+
+        countryOverridePref = (ListPreference) findPreference(KEY_COUNTRY_OVERRIDE);
+        if (countryOverridePref != null) {
+            countryOverridePref.setOnPreferenceChangeListener(this);
+            String value = Settings.Global.getString(getContentResolver(),
+                                Settings.Global.WIFI_COUNTRY_OVERRIDE);
+            if (value != null && !value.isEmpty() && value != "") {
+                int index = countryOverridePref.findIndexOfValue(value);
+                updateCountryOverrideSummary(countryOverridePref, index);
+                countryOverridePref.setValue(value);
+            }
+        }
+
         ListPreference sleepPolicyPref = (ListPreference) findPreference(KEY_SLEEP_POLICY);
         if (sleepPolicyPref != null) {
             if (Utils.isWifiOnly(context)) {
@@ -227,6 +256,16 @@ public class AdvancedWifiSettings extends SettingsPreferenceFragment
         frequencyBandPref.setSummary(summaries[index]);
     }
 
+    private void updateCountryOverrideSummary(Preference countryOverridePref, int index) {
+        String[] summaries = getResources().getStringArray(R.array.wifi_country_override_entries);
+        countryOverridePref.setSummary(summaries[index]);
+    }
+
+    private void updateCountryCodeSummary(Preference countryCodePref, int index) {
+        String[] summaries = getResources().getStringArray(R.array.wifi_country_code_entries);
+        countryCodePref.setSummary(summaries[index]);
+    }
+
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen screen, Preference preference) {
         String key = preference.getKey();
@@ -257,6 +296,40 @@ public class AdvancedWifiSettings extends SettingsPreferenceFragment
                 updateFrequencyBandSummary(preference, value);
             } catch (NumberFormatException e) {
                 Toast.makeText(context, R.string.wifi_setting_frequency_band_error,
+                        Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        } else if (KEY_COUNTRY_CODE.equals(key)) {
+            try {
+                String value = (String) newValue;
+                int index = countryCodePref.findIndexOfValue(value);
+                Settings.System.putString(getContentResolver(),
+                        Settings.Global.WIFI_COUNTRY_CODE, value);
+                countryCodePref.setValue(value);
+                updateCountryCodeSummary(preference, index);
+                if(mWifiManager.isWifiEnabled()) {
+                    mWifiManager.setWifiEnabled(false);
+                    mWifiManager.setWifiEnabled(true);
+                }
+            } catch (NumberFormatException e) {
+                Toast.makeText(context, R.string.wifi_country_code_error,
+                        Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        } else if (KEY_COUNTRY_OVERRIDE.equals(key)) {
+            try {
+                String value = (String) newValue;
+                int index = countryOverridePref.findIndexOfValue(value);
+                Settings.System.putString(getContentResolver(),
+                        Settings.Global.WIFI_COUNTRY_OVERRIDE, value);
+                countryOverridePref.setValue(value);
+                updateCountryOverrideSummary(preference, index);
+                if(mWifiManager.isWifiEnabled()) {
+                    mWifiManager.setWifiEnabled(false);
+                    mWifiManager.setWifiEnabled(true);
+                }
+            } catch (NumberFormatException e) {
+                Toast.makeText(context, R.string.wifi_country_override_error,
                         Toast.LENGTH_SHORT).show();
                 return false;
             }
