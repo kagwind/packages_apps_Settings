@@ -635,6 +635,7 @@
         <item>@string/shortcut_action_assist</item>
         <item>@string/shortcut_action_voice_search</item>
         <item>@string/shortcut_action_none</item>
+        <item>@string/shortcut_action_torch</item>
     </string-array>
 
     <string-array name="shortcut_action_hwkey_values" translatable="false">
@@ -655,6 +656,7 @@
         <item>**assist**</item>
         <item>**voice_search**</item>
         <item>**null**</item>
+        <item>**torch**</item>
     </string-array>
 
     <string-array name="shortcut_action_power_menu_entries">
@@ -693,27 +695,10 @@
         <item>**recents**</item>
     </string-array>
 
-    <!-- Heads up -->
-    <string-array name="heads_up_snooze_entries">
-        <item>@string/disabled</item>
-        <item>@string/heads_up_snooze_3min</item>
-        <item>@string/heads_up_snooze_5min</item>
-        <item>@string/heads_up_snooze_10min</item>
-        <item>@string/heads_up_snooze_15min</item>
-        <item>@string/heads_up_snooze_20min</item>
-    </string-array>
-
-    <string-array name="heads_up_snooze_values" translatable="false">
-        <item>0</item>
-        <item>180000</item>
-        <item>300000</item>
-        <item>600000</item>
-        <item>900000</item>
-        <item>1200000</item>
-    </string-array>
-
+    <!-- Heads up timeout -->
     <string-array name="heads_up_time_out_entries">
         <item>@string/heads_up_time_out_never</item>
+        <item>@string/heads_up_time_out_2sec</item>
         <item>@string/heads_up_time_out_4sec</item>
         <item>@string/heads_up_time_out_6sec</item>
         <item>@string/heads_up_time_out_8sec</item>
@@ -722,6 +707,7 @@
 
     <string-array name="heads_up_time_out_values" translatable="false">
         <item>0</item>
+        <item>2000</item>
         <item>4000</item>
         <item>6000</item>
         <item>8000</item>
