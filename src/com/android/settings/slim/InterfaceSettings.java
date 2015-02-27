@@ -47,7 +47,7 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
 
         addPreferencesFromResource(R.xml.slim_interface_settings);
 
-            if (!isPackageInstalled("org.bitsyko.overlaymanager")) {
+            if (!isPackageInstalled("com.lovejoy777.rroandlayersmanager")) {
                 PreferenceScreen screen = getPreferenceScreen();
                 Preference pref = getPreferenceManager().findPreference(KEY_BITSYKO_LAYERS);
                 screen.removePreference(pref);
