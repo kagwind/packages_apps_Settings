@@ -1124,7 +1124,7 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
 
     private void updateUseNuplayerOptions() {
         updateSwitchPref(
-                mUseNuplayer, !SystemProperties.getBoolean(USE_AWESOMEPLAYER_PROPERTY, true));
+                mUseNuplayer, !SystemProperties.getBoolean(USE_AWESOMEPLAYER_PROPERTY, false));
     }
 
     private void writeUseNuplayerOptions() {
