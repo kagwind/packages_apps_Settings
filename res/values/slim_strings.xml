@@ -729,12 +729,13 @@
     <string name="qs_advanced_location_title">Advanced location quick settings</string>
     <string name="qs_advanced_location_summary">Enable advanced settings for location in quick settings</string>
 
-<<<<<<< HEAD
-||||||| parent of e26f0ca... [2/2] Settings: Chamber of Secrets && SlimActions to shortcuts
-    <!-- SuperSU header name - the app hides itself from launcher based on this resource name being present in com.android.settings -->
-    <string name="supersu_title">SuperSU</string>
+    <string name="qs_screenshot_tile">Screenshot</string>
 
-=======
+    <string name="qs_tile_slimaction">SlimAction</string>
+
+    <string name="qs_slim_action_title">SlimActions</string>
+    <string name="qs_slim_action_summary">Add and set the order of SlimActions for SlimAction tile</string>
+
     <!-- Chamber of Secrets -->
     <string name="chamber_title">Chamber of secrets</string>
     <string name="chamber_toast">The chamber of secrets has opened</string>
@@ -742,5 +743,4 @@
     <!-- SuperSU header name - the app hides itself from launcher based on this resource name being present in com.android.settings -->
     <string name="supersu_title">SuperSU</string>
 
->>>>>>> e26f0ca... [2/2] Settings: Chamber of Secrets && SlimActions to shortcuts
 </resources>
