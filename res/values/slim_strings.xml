@@ -753,6 +753,33 @@
     <string name="heads_up_touch_outside_summary_enabled">Hide notification on touch outside and on home button press</string>
     <string name="heads_up_touch_outside_summary_disabled">Do not hide notification after touch outside or on home button press</string>
 
+    <!-- Navigation Bar -->
+    <string name="navigation_bar_title">Navigation bar</string>
+    <string name="navigation_bar_summary">Customize navigation bar buttons</string>
+
+    <!-- Dialog title for navigation bar button selection -->
+    <string name="navigation_bar_buttons">Buttons and layout</string>
+    <string name="navigation_bar_help_text">To get started tap the edit icon to unlock the navigation bar for editing.\n\nYou can tap an icon to change its shortcut, or long press an icon to re-arrange the layout.\n\nTap save to commit your changes, or restore to reset the layout to default settings.</string>
+    <string name="navigation_restore_button_text">Restore\ndefaults</string>
+    <string name="navigation_edit_button_text">Edit</string>
+    <string name="navigation_save_button_text">Save</string>
+    <string name="navigation_bar_reset_message">Delete current settings and restore the default layout?</string>
+    <string name="profile_reset_title">Reset</string>
+
+    <string name="navigation_bar_autopadding_title">Navigation bar buttons autopadding</string>
+    <string name="navigation_bar_autopadding_summary">Evenly distribute the active buttons over the width of the navigation bar (default enabled).</string>
+
+    <string name="navigation_bar_arrow_keys_title">Show arrow keys while typing</string>
+    <string name="navigation_bar_arrow_keys_summary">Display left and right cursor buttons in navigation bar while typing. Overrides IME switcher.</string>
+
+    <!-- Navring targets (enable/disable) -->
+    <string name="navigation_ring_enable_title">Enable navigation rings</string>
+
+    <!-- Navigation ring shortcuts -->
+    <string name="navigation_ring_title">Navigation ring targets</string>
+    <string name="navigation_ring_summary">Customize navigation ring target behavior</string>
+    <string name="navigation_ring_message">Tap the edit icon to open the navigation ring for editing.\n\nSelect a target to configure its behavior.\n\nTap the check mark icon to save your changes, or restore to reset the settings to defaults.</string>
+
 	<!-- Increasing ring tone volume -->
 	<string name="increasing_ring_volume_option_title">Increasing ring volume</string>
 	<string name="increasing_ring_min_volume_title">Start volume</string>

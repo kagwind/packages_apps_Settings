@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/navigation_bar_title" >
+
+        <PreferenceScreen
+            android:key="navigation_bar"
+            android:fragment="com.android.settings.slim.NavBar"
+            android:summary="@string/navigation_bar_summary"
+            android:title="@string/navigation_bar_title" />
+
+        <com.android.settings.slim.SystemSettingSwitchPreference
+            android:key="navigation_bar_autopadding"
+            android:title="@string/navigation_bar_autopadding_title"
+            android:summary="@string/navigation_bar_autopadding_summary"
+            android:defaultValue="true" />
+
+        <com.android.settings.slim.SystemSettingSwitchPreference
+            android:key="navigation_bar_menu_arrow_keys"
+            android:title="@string/navigation_bar_arrow_keys_title"
+            android:summary="@string/navigation_bar_arrow_keys_summary"
+            android:defaultValue="false" />
+
+        <com.android.settings.slim.SecureSettingSwitchPreference
+            android:key="search_panel_enabled"
+            android:title="@string/navigation_ring_enable_title"
+            android:defaultValue="true" />
+
+        <PreferenceScreen
+            android:key="navigation_bar_ring"
+            android:fragment="com.android.settings.slim.NavRing"
+            android:summary="@string/navigation_ring_summary"
+            android:title="@string/navigation_ring_title"
+            android:dependency="search_panel_enabled" />
+
+</PreferenceScreen>
