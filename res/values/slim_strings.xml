@@ -751,6 +751,15 @@
     <string name="heads_up_touch_outside_summary_enabled">Hide notification on touch outside and on home button press</string>
     <string name="heads_up_touch_outside_summary_disabled">Do not hide notification after touch outside or on home button press</string>
 
+	<!-- Increasing ring tone volume -->
+	<string name="increasing_ring_volume_option_title">Increasing ring volume</string>
+	<string name="increasing_ring_min_volume_title">Start volume</string>
+	<string name="increasing_ring_ramp_up_time_title">Ramp-up time</string>
+
+	<!-- Volume link/unlink -->
+	<string name="link_volume_option_title">Link ringtone &amp; notification volumes</string>
+	<string name="notification_volume_option_title">Notification volume</string>
+
     <!-- Chamber of Secrets -->
     <string name="chamber_title">Chamber of secrets</string>
     <string name="chamber_toast">The chamber of secrets has opened</string>
