@@ -48,7 +48,6 @@ import android.os.StrictMode;
 import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.UserManager;
-import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -257,7 +256,7 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
     private PreferenceScreen mProcessStats;
 
     private Preference mChamber;
-    private CheckBoxPreference mChamberUnlocked;
+    private SwitchPreference mChamberUnlocked;
 
     private final ArrayList<Preference> mAllPrefs = new ArrayList<Preference>();
 
@@ -411,7 +410,7 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
         mChamber = (Preference) findPreference(KEY_CHAMBER_OF_SECRETS);
         mAllPrefs.add(mChamber);
         mChamberUnlocked =
-                findAndInitCheckboxPref(KEY_CHAMBER_OF_UNLOCKED_SECRETS);
+                findAndInitSwitchPref(KEY_CHAMBER_OF_UNLOCKED_SECRETS);
         mChamberUnlocked.setOnPreferenceChangeListener(this);
 
         boolean chamberOpened = Settings.Secure.getInt(
@@ -447,16 +446,6 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
         }
         mAllPrefs.add(pref);
         mResetSpPrefs.add(pref);
-        return pref;
-    }
-
-    private CheckBoxPreference findAndInitCheckboxPref(String key) {
-        CheckBoxPreference pref = (CheckBoxPreference) findPreference(key);
-        if (pref == null) {
-            throw new IllegalArgumentException("Cannot find preference with key = " + key);
-        }
-        mAllPrefs.add(pref);
-        // mResetCbPrefs.add(pref);
         return pref;
     }
 
