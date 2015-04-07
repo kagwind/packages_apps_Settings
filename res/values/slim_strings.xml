@@ -754,6 +754,12 @@
     <string name="navigation_bar_reset_message">Delete current settings and restore the default layout?</string>
     <string name="profile_reset_title">Reset</string>
 
+    <!-- Virtual Key Rebinding -->
+    <string name="navigation_buttons_binding_title">Navbar buttons rebinding</string>
+    <string name="navigation_buttons_binding_summary">Customize navbar buttons actions</string>
+    <string name="vkeys_enable_custom_title">Enable custom actions</string>
+    <string name="vkeys_enable_custom_summary">Enable custom virtual key actions</string>
+
     <string name="navigation_bar_autopadding_title">Navigation bar buttons autopadding</string>
     <string name="navigation_bar_autopadding_summary">Evenly distribute the active buttons over the width of the navigation bar (default enabled).</string>
 

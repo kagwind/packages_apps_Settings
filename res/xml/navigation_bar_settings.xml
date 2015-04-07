@@ -10,6 +10,12 @@
             android:summary="@string/navigation_bar_summary"
             android:title="@string/navigation_bar_title" />
 
+        <PreferenceScreen
+            android:key="virtualkeys_settings"
+            android:fragment="com.android.settings.slim.VirtualKeysSettings"
+            android:title="@string/navigation_buttons_binding_title"
+            android:summary="@string/navigation_buttons_binding_summary" />
+
         <com.android.settings.slim.SystemSettingSwitchPreference
             android:key="navigation_bar_autopadding"
             android:title="@string/navigation_bar_autopadding_title"

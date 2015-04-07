@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2014 Slimroms Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <com.android.settings.slim.SystemSettingSwitchPreference
+            android:key="enable_virtual_rebind"
+            android:title="@string/vkeys_enable_custom_title"
+            android:summary="@string/vkeys_enable_custom_summary"
+            android:defaultValue="false" />
+
+        <PreferenceCategory
+            android:key="vbutton_keys_back"
+            android:title="@string/keys_back_press_title" >
+
+            <Preference
+                android:key="vkeys_back_long_press"
+                android:title="@string/keys_action_long"
+                android:dependency="enable_virtual_rebind" />
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            android:key="vbutton_keys_appSwitch"
+            android:title="@string/keys_app_switch_press_title">
+
+            <Preference
+                android:key="vkeys_app_switch_long_press"
+                android:title="@string/keys_action_long"
+                android:dependency="enable_virtual_rebind" />
+
+            <Preference
+                android:key="vkeys_app_switch_double_tap"
+                android:title="@string/keys_action_double"
+                android:dependency="enable_virtual_rebind" />
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            android:key="vbutton_keys_home"
+            android:title="@string/keys_home_press_title">
+
+            <Preference
+                android:key="vkeys_home_double_tap"
+                android:title="@string/keys_action_double"
+                android:dependency="enable_virtual_rebind" />
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            android:key="vbutton_keys_assist"
+            android:title="@string/keys_assist_press_title">
+
+            <Preference
+                android:key="vkeys_assist_press"
+                android:title="@string/keys_action_normal"
+                android:dependency="enable_virtual_rebind" />
+
+            <Preference
+                android:key="vkeys_assist_long_press"
+                android:title="@string/keys_action_long"
+                android:dependency="enable_virtual_rebind" />
+
+            <Preference
+                android:key="vkeys_assist_double_tap"
+                android:title="@string/keys_action_double"
+                android:dependency="enable_virtual_rebind" />
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            android:key="vbutton_keys_camera"
+            android:title="@string/keys_camera_press_title" >
+
+            <Preference
+                android:key="vkeys_camera_press"
+                android:title="@string/keys_action_normal"
+                android:dependency="enable_virtual_rebind" />
+
+            <Preference
+                android:key="vkeys_camera_long_press"
+                android:title="@string/keys_action_long"
+                android:dependency="enable_virtual_rebind" />
+
+            <Preference
+                android:key="vkeys_camera_double_tap"
+                android:title="@string/keys_action_double"
+                android:dependency="enable_virtual_rebind" />
+        </PreferenceCategory>
+
+</PreferenceScreen>
