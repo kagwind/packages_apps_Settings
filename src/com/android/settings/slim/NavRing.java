@@ -29,12 +29,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.settings.R;
-import com.android.internal.util.slim.ActionConstants;
+import com.android.internal.util.slim.NavigationRingConstants;
 
 public class NavRing extends Fragment implements View.OnClickListener {
     private LinearLayout mRestore, mSave, mEdit;
     private final static Intent TRIGGER_INTENT =
-            new Intent(ActionConstants.BROADCAST);
+            new Intent(NavigationRingConstants.BROADCAST);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,7 +67,7 @@ public class NavRing extends Fragment implements View.OnClickListener {
     }
 
     private void setEditMode(boolean on) {
-        TRIGGER_INTENT.putExtra(ActionConstants.EDIT_STATE_EXTRA, on);
+        TRIGGER_INTENT.putExtra(NavigationRingConstants.EDIT_STATE_EXTRA, on);
         getActivity().sendBroadcast(TRIGGER_INTENT);
     }
 
