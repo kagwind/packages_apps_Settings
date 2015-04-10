@@ -113,9 +113,9 @@ public class VirtualKeysSettings extends SettingsPreferenceFragment implements
         sFinalActionDialogArray = new FilteredDeviceFeaturesArray();
         sFinalActionDialogArray = DeviceUtils.filterUnsupportedDeviceFeatures(getActivity(),
                 res.getStringArray(res.getIdentifier(
-                        "shortcut_action_hwkey_values", "array", "com.android.settings")),
+                        "shortcut_action_navbar_values", "array", "com.android.settings")),
                 res.getStringArray(res.getIdentifier(
-                        "shortcut_action_hwkey_entries", "array", "com.android.settings")));
+                        "shortcut_action_navbar_entries", "array", "com.android.settings")));
 
 
         // Attach final settings screen.
