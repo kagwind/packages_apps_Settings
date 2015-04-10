@@ -768,7 +768,7 @@
     <!-- Navigation ring shortcuts -->
     <string name="navigation_ring_title">Navigation ring targets</string>
     <string name="navigation_ring_summary">Customize navigation ring target behavior</string>
-    <string name="navigation_ring_message">Tap the edit icon to open the navigation ring for editing.\n\nSelect a target to configure its behavior.\n\nTap the check mark icon to save your changes, or restore to reset the settings to defaults.</string>
+    <string name="navigation_ring_message">Tap the edit icon to open the navigation ring for editing.\n\nSelect a target to configure its behavior.\nLong press a target to configure its longpress behavior.\n\nTap the check mark icon to save your changes, or restore to reset the settings to defaults.</string>
 
 	<!-- Increasing ring tone volume -->
 	<string name="increasing_ring_volume_option_title">Increasing ring volume</string>

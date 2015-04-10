@@ -29,12 +29,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.settings.R;
-import com.android.internal.util.slim.NavigationRingConstants;
+import static com.android.internal.util.slim.NavigationRingConstants.*;
 
 public class NavRing extends Fragment implements View.OnClickListener {
     private LinearLayout mRestore, mSave, mEdit;
     private final static Intent TRIGGER_INTENT =
-            new Intent(NavigationRingConstants.BROADCAST);
+            new Intent(BROADCAST);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,7 +67,7 @@ public class NavRing extends Fragment implements View.OnClickListener {
     }
 
     private void setEditMode(boolean on) {
-        TRIGGER_INTENT.putExtra(NavigationRingConstants.EDIT_STATE_EXTRA, on);
+        TRIGGER_INTENT.putExtra(EDIT_STATE_EXTRA, on);
         getActivity().sendBroadcast(TRIGGER_INTENT);
     }
 
@@ -82,9 +82,11 @@ public class NavRing extends Fragment implements View.OnClickListener {
                     .setMessage(R.string.navigation_bar_reset_message)
                     .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            for (int i = 0; i < 3; i++) {
+                            for (int i = 0; i < MAX_ACTIONS; i++) {
                                 Settings.Secure.putString(getActivity().getContentResolver(),
                                         Settings.Secure.NAVIGATION_RING_TARGETS[i], null);
+                                Settings.Secure.putString(getActivity().getContentResolver(),
+                                        Settings.Secure.NAVIGATION_RING_LONGPRESS_TARGETS[i], null);
                             }
                         }
                     })
