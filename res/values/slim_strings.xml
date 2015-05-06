@@ -1130,4 +1130,7 @@
     <string name="show_unac_and_overcounted_stats_title">Show unaccounted/overcounted stats</string>
     <string name="show_unac_and_overcounted_stats_summary">Show in battery statistics unaccounted and over-counted usage.</string>
 
+    <!-- USB connection toast-->
+    <string name="usb_not_connected">USB not connected</string>
+
 </resources>
