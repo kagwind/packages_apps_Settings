@@ -277,6 +277,7 @@ public class PrivacyGuardManager extends Fragment
         List<PackageInfo> packages = mPm.getInstalledPackages(
             PackageManager.GET_PERMISSIONS | PackageManager.GET_SIGNATURES);
         boolean showSystemApps = shouldShowSystemApps();
+        boolean filterByPermission = shouldFilterByPermission();
 
         for (PackageInfo info : packages) {
             final ApplicationInfo appInfo = info.applicationInfo;
@@ -284,6 +285,15 @@ public class PrivacyGuardManager extends Fragment
             // skip all system apps if they shall not be included
             if (!showSystemApps && (appInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
                 continue;
+            }
+
+            // hide apps without guarded permissions
+            if (filterByPermission) {
+                final boolean hasPrivacyGuardOps
+                        = mAppOps.hasPrivacyGuardOpsForPackage(appInfo.uid, info.packageName);
+                if (!hasPrivacyGuardOps) {
+                    continue;
+                }
             }
 
             AppInfo app = new AppInfo();
@@ -312,6 +322,10 @@ public class PrivacyGuardManager extends Fragment
 
     private boolean shouldShowSystemApps() {
         return mPreferences.getBoolean("show_system_apps", false);
+    }
+
+    private boolean shouldFilterByPermission() {
+        return mPreferences.getBoolean("filter_by_permission", true);
     }
 
     private class HelpDialogFragment extends DialogFragment {
@@ -377,6 +391,7 @@ public class PrivacyGuardManager extends Fragment
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.privacy_guard_manager, menu);
         menu.findItem(R.id.show_system_apps).setChecked(shouldShowSystemApps());
+        menu.findItem(R.id.filter_app_permissions).setChecked(shouldFilterByPermission());
     }
 
     @Override
@@ -388,8 +403,10 @@ public class PrivacyGuardManager extends Fragment
             case R.id.reset:
                 resetPrivacyGuard();
                 return true;
+            case R.id.filter_app_permissions:
             case R.id.show_system_apps:
-                final String prefName = "show_system_apps";
+                final String prefName = item.getItemId() == R.id.filter_app_permissions
+                        ? "filter_by_permission" : "show_system_apps";
                 // set the menu checkbox and save it in
                 // shared preference and rebuild the list
                 item.setChecked(!item.isChecked());
