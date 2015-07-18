@@ -68,6 +68,8 @@ public class NavRing extends Fragment implements View.OnClickListener {
                             for (int i = 0; i < 3; i++) {
                                 Settings.Secure.putString(getActivity().getContentResolver(),
                                         Settings.Secure.NAVIGATION_RING_TARGETS[i], null);
+                                Settings.Secure.putString(getActivity().getContentResolver(),
+                                        Settings.Secure.NAVIGATION_RING_LONGPRESS_TARGETS[i], null);
                             }
                         }
                     })
