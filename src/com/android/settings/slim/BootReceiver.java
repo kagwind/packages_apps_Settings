@@ -23,7 +23,6 @@ import android.content.Intent;
 import com.android.settings.DisplaySettings;
 import com.android.settings.hardware.VibratorIntensity;
 import com.android.settings.inputmethod.InputMethodAndLanguageSettings;
-import com.android.settings.livedisplay.DisplayGamma;
 import com.android.settings.slim.HardwareKeysSettings;
 
 public class BootReceiver extends BroadcastReceiver {
@@ -31,7 +30,6 @@ public class BootReceiver extends BroadcastReceiver {
     public void onReceive(Context ctx, Intent intent) {
         /* Restore the hardware tunable values */
         DisplaySettings.restore(ctx);
-        DisplayGamma.restore(ctx);
         HardwareKeysSettings.restore(ctx);
         VibratorIntensity.restore(ctx);
         InputMethodAndLanguageSettings.restore(ctx);
